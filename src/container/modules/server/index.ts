@@ -1,9 +1,9 @@
 import fastify from 'fastify';
 import { ContainerModule, interfaces } from 'inversify';
 
-// import ApplicationAPI from 'api';
-import * as Plugins from 'plugins';
-import { ConfigSymbols } from '../symbols';
+import ApplicationAPI from 'api';
+import * as Plugins from './plugins';
+import { ConfigSymbols } from '../../symbols';
 
 export default new ContainerModule((bind) => {
   const server = fastify({
@@ -22,11 +22,10 @@ export default new ContainerModule((bind) => {
   Plugins.FastifyHelmetPlugin(server);
   Plugins.FastifyCORSPlugin(server);
   Plugins.FastifySwaggerPlugin(server);
-  // ApplicationAPI(server);
 
-  bind(ConfigSymbols.Server).toDynamicValue((context: interfaces.Context) => {
-    server.decorateRequest('container', { getter: () => context.container });
+  ApplicationAPI(server);
 
-    return server;
-  });
+  bind(ConfigSymbols.Server).toDynamicValue((context: interfaces.Context) =>
+    server.decorateRequest('container', { getter: () => context.container }),
+  );
 });
