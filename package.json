@@ -18,7 +18,7 @@
     "test:watch": "vitest -w"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@fastify/cors": "^8.3.0",
