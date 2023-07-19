@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "lib": ["esnext"],
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "outDir": "build",
-    "baseUrl": "src",
-    "skipLibCheck": true,
-    "strict": true,
+    "lib": ["ESNext"],
+    "types": ["reflect-metadata", "node"],
+    "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": ["reflect-metadata"]
+    "downlevelIteration": true,
+    "outDir": "build",
+    "rootDir": "./src",
+    "target": "es2017",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": "src"
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "include": ["src", "tests/migrations"],
   "exclude": ["node_modules"]
 }

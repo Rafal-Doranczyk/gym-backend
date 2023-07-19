@@ -4,7 +4,7 @@ import { FastifyInstance } from 'fastify';
 import protecteRoutes from './protected';
 import publicRoutes from './public';
 
-export default function (server: FastifyInstance) {
+export default function Api(server: FastifyInstance) {
   server.register((fastify, _, done) => {
     publicRoutes.forEach((route) => {
       fastify.register(route);

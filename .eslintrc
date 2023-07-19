@@ -1,0 +1,19 @@
+{
+  "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+  "rules": {
+    "complexity": "off",
+    "max-nested-callbacks": ["error", { "max": 10 }],
+    "max-depth": ["error", { "max": 5 }],
+    "valid-jsdoc": "off",
+    "max-params": "off",
+    "prefer-regex-literals": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  },
+  "overrides": [
+    {
+      "rules": {
+        "@typescript-eslint/no-unused-expressions": "off"
+      }
+    }
+  ]
+}
