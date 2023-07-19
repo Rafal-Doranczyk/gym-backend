@@ -1,7 +1,8 @@
 FROM node:18
 
 # Create app directory
-WORKDIR /app/backend
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
