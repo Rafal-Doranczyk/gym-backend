@@ -1,7 +1,6 @@
-FROM node:18
+FROM node:18-alpine
 
 # Create app directory
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
@@ -16,5 +15,5 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
-CMD [ "node", "server.js" ]
+EXPOSE 3000
+CMD [ "npm", "start" ]

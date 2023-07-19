@@ -5,9 +5,6 @@
   "main": "index.js",
   "author": "",
   "license": "ISC",
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "scripts": {
     "build": "tsc",
     "start": "yarn build && node -r ts-node/register/transpile-only -r tsconfig-paths/register build/index.js",

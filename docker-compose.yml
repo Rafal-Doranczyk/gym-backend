@@ -8,6 +8,9 @@ services:
       SERVICE_PORT: '${API_PORT}'
       SERVICE_HOST: '${API_HOST}'
     build: '.'
-    command: yarn start
+    volumes:
+      - ./src:/usr/app/
+      - /usr/app/node_modules
+    command: npm start
     ports:
       - '${API_PORT}:${API_PORT}'
