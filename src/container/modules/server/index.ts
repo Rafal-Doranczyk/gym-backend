@@ -14,6 +14,8 @@ export default new ContainerModule((bind) => {
         messages: true,
         coerceTypes: true,
         removeAdditional: true,
+        // Dont get it, but it works only with this option
+        keywords: ['kind'],
       },
     },
   });

@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 import { FastifyInstance } from 'fastify';
 
 import container, { ConfigSymbols, ConfigInterface } from './container';
@@ -14,6 +15,7 @@ async function start() {
   try {
     server.swagger();
     server.listen({ port, host });
+    server.log.info(`Server listening on ${host}:${port}`);
   } catch (err) {
     server.log.error(err);
     process.exit(1);

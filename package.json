@@ -9,7 +9,7 @@
     "build": "tsc",
     "start": "yarn build && node -r ts-node/register/transpile-only -r tsconfig-paths/register build/index.js",
     "build:docker:prod": "docker build . -t my-fastify-app --build-arg APP_ENV=production",
-    "dev": "tsx watch src .env | pino-pretty --colorize",
+    "dev": "npx tsx watch src .env | pino-pretty --colorize",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "check:types": "tsc --noEmit"
@@ -21,11 +21,14 @@
     "@fastify/swagger-ui": "^1.9.2",
     "@sinclair/typebox": "^0.29.4",
     "ajv": "^8.12.0",
+    "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
     "fastify": "^4.19.2",
     "fastify-plugin": "^4.5.0",
+    "google-auth-library": "^8.9.0",
     "gym-shared": "^0.0.24",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@types/node": "^20.4.2",

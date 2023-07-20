@@ -1,80 +1,37 @@
-// import { AsyncContainerModule } from 'inversify';
-// import { createConnection, ConnectionOptions } from 'typeorm';
+import { AsyncContainerModule } from 'inversify';
+import { DataSource } from 'typeorm';
+import pino from 'pino';
 
-// import * as Entities from 'entities';
-// import * as R from 'repositories';
+import * as Entities from 'entities';
 
-// const getDbConnection = async () => {
-//   const {
-//     POSTGRES_DB,
-//     POSTGRES_PORT,
-//     POSTGRES_HOST,
-//     POSTGRES_USER,
-//     POSTGRES_PASSWORD,
-//   } = process.env;
-//   const options: ConnectionOptions = {
-//     type: 'postgres',
-//     host: POSTGRES_HOST,
-//     port: +POSTGRES_PORT,
-//     username: POSTGRES_USER,
-//     password: POSTGRES_PASSWORD,
-//     database: POSTGRES_DB,
-//   };
-//   try {
-//     return await createConnection({
-//       ...options,
-//       database: `${options.database}`,
-//       entities: [...Object.values(Entities)],
-//       dropSchema: true,
-//       synchronize: true,
-//     });
-//   } catch (error) {
-//     console.log('DB ERROR');
-//     console.log(error);
-//   }
-// };
+export const dataSource = new DataSource({
+  type: process.env.DB_TYPE,
+  host: process.env.DB_HOST,
+  port: +process.env.DB_PORT,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  entities: [...Object.values(Entities)],
+  dropSchema: true,
+  synchronize: true,
+  ssl: true,
+});
 
-// export default new AsyncContainerModule(async (bind) => {
-//   const connection = await getDbConnection();
+export default new AsyncContainerModule(async (bind) => {
+  try {
+    await dataSource.initialize();
+    pino().info(`${process.env.DB_TYPE} DB CONNECTED`);
+  } catch (error) {
+    pino().error('DB ERROR');
+    pino().error(error);
 
-//   // USER
-//   const userRepository = connection.getCustomRepository(R.UserRepository);
-//   bind(R.UserRepository).toConstantValue(userRepository);
+    throw error;
+  }
 
-//   const nutritionGoalsRepository = connection.getCustomRepository(R.NutritionGoalsRepository);
-//   bind(R.NutritionGoalsRepository).toConstantValue(nutritionGoalsRepository);
-
-//   // DIARY
-//   const measurementsRepository = connection.getCustomRepository(R.MeasurementsRepository);
-//   bind(R.MeasurementsRepository).toConstantValue(measurementsRepository);
-
-//   // INGREDIENTS
-//   const ingredientsRepository = connection.getCustomRepository(R.IngredientRepository);
-//   bind(R.IngredientRepository).toConstantValue(ingredientsRepository);
-
-//   const ingredientPriceRepository = connection.getCustomRepository(R.IngredientPriceRepository);
-//   bind(R.IngredientPriceRepository).toConstantValue(ingredientPriceRepository);
-
-//   // MEALS
-//   const mealRepository = connection.getCustomRepository(R.MealRepository);
-//   bind(R.MealRepository).toConstantValue(mealRepository);
-
-//   const mealIngredientRepository = connection.getCustomRepository(R.MealIngredientRepository);
-//   bind(R.MealIngredientRepository).toConstantValue(mealIngredientRepository);
-
-//   // PLANS
-//   const eatingDayPlanRepository = connection.getCustomRepository(R.EatingDayPlanRepository);
-//   bind(R.EatingDayPlanRepository).toConstantValue(eatingDayPlanRepository);
-
-//   // NUTRITION GROUPS
-//   const ingredientGroupRepository = connection.getCustomRepository(R.IngredientGroupRepository);
-//   bind(R.IngredientGroupRepository).toConstantValue(ingredientGroupRepository);
-
-//   const mealGroupRepository = connection.getCustomRepository(R.MealGroupRepository);
-//   bind(R.MealGroupRepository).toConstantValue(mealGroupRepository);
-
-//   const eatingDayPlanGroupRepository = connection.getCustomRepository(
-//     R.EatingDayPlanGroupRepository,
-//   );
-//   bind(R.EatingDayPlanGroupRepository).toConstantValue(eatingDayPlanGroupRepository);
-// });
+  // USER
+  // const userRepository = dataSource.getRepository<Repositories.UserRepo>(Repositories.UserRepo);
+  // bind(Repositories.UserRepo).toConstantValue(userRepository);
+  // bind(Repositories.UserRepo).toConstantValue(userRepository);
+  // bind<Repositories.UserRepo>("userRepo").toConstantValue(repoFactory(myDS.manager));
+  // console.log(userRepository);
+});

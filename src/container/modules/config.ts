@@ -1,5 +1,4 @@
 import { ContainerModule } from 'inversify';
-import { config } from 'dotenv';
 
 import { ConfigSymbols } from '../symbols';
 
@@ -9,8 +8,6 @@ export type ConfigInterface = {
 };
 
 export default new ContainerModule((bind) => {
-  config();
-
   const value: ConfigInterface = {
     port: +process.env.API_PORT,
     host: process.env.API_HOST,

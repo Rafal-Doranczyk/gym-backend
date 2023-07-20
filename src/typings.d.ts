@@ -11,16 +11,18 @@ declare module 'fastify' {
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
+      NODE_ENV: 'development';
+      LOG_LEVEL: 'debug' | 'info' | 'warn' | 'error';
       API_PORT: string;
       API_HOST: string;
-      AWS_ACCESS_KEY: string;
-      AWS_SECRET_KEY: string;
-      AWS_REGION: string;
-      AWS_BUCKET_NAME: string;
+      DB_TYPE: 'postgres';
+      DB_HOST: string;
+      DB_PORT: number;
+      DB_USER: string;
+      DB_PASSWORD: string;
+      DB_NAME: string;
       GOOGLE_CLIENT_ID: string;
       GOOGLE_CLIENT_SECRET: string;
-      GITHUB_CLIENT_ID: string;
-      GITHUB_CLIENT_SECRET: string;
     }
   }
 }

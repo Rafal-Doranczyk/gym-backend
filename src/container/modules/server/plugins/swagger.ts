@@ -15,7 +15,10 @@ export default function swaggerPlugin(app: FastifyInstance) {
       schemes: ['http'],
       consumes: ['application/json'],
       produces: ['application/json'],
-      tags: [{ name: 'health', description: 'Health related end-points' }],
+      tags: [
+        { name: 'health', description: 'Health related end-points' },
+        { name: 'auth', description: 'Auth related end-points' },
+      ],
       securityDefinitions: {
         apiKey: {
           type: 'apiKey',

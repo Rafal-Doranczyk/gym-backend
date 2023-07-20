@@ -1,3 +1,4 @@
 import { healthRoutes } from './health';
+import { authRoutes } from './auth';
 
-export default [healthRoutes];
+export default [healthRoutes, authRoutes];

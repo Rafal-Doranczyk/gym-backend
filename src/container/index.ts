@@ -1,16 +1,16 @@
 import { Container } from 'inversify';
 
-import { ConfigSymbols } from './symbols';
 import Config, { ConfigInterface } from './modules/config';
 import Server from './modules/server';
+import Database from './modules/database';
 
-// import Database from './db';
+import { ConfigSymbols } from './symbols';
 
 const container = new Container();
 
 container.load(Server);
 container.load(Config);
-// container.load(Database)
+container.load(Database);
 
 export { ConfigInterface, ConfigSymbols };
 
