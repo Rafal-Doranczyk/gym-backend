@@ -1,8 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { OAuth2Client } from 'google-auth-library';
-import { GoogleSigninPayload, GoogleSigninResponse, constants, schemas } from 'gym-shared';
+import {
+  GoogleSigninPayload,
+  GoogleSigninResponse,
+  constants,
+  schemas,
+} from 'gym-shared';
 
-import { UserRepo } from 'repositories';
+import { UserRepo } from '@/repositories';
 
 export default function routes(fastify: FastifyInstance, _: any, done: () => void) {
   fastify.post<{
@@ -27,10 +32,8 @@ export default function routes(fastify: FastifyInstance, _: any, done: () => voi
         },
       },
     },
-    async ({ container, body: { idToken } }, res) => {
+    async ({ body: { idToken } }, res) => {
       const audience = process.env.GOOGLE_CLIENT_ID;
-
-      console.log(audience);
 
       const ticket = await new OAuth2Client(audience).verifyIdToken({
         idToken,
@@ -39,9 +42,7 @@ export default function routes(fastify: FastifyInstance, _: any, done: () => voi
 
       const googleUser = ticket.getPayload();
 
-      const user = UserRepo.find({ where: { email: googleUser?.email } });
-
-      console.log(user);
+      const user = await UserRepo.findOne({ where: { email: googleUser?.email } });
 
       const tokens = {
         accessToken: idToken,

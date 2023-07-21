@@ -18,6 +18,7 @@ export default function swaggerPlugin(app: FastifyInstance) {
       tags: [
         { name: 'health', description: 'Health related end-points' },
         { name: 'auth', description: 'Auth related end-points' },
+        { name: 'user', description: 'User related end-points' },
       ],
       securityDefinitions: {
         apiKey: {

@@ -1,8 +1,10 @@
-import { AsyncContainerModule } from 'inversify';
+import { ContainerModule } from 'inversify';
 import { DataSource } from 'typeorm';
 import pino from 'pino';
 
-import * as Entities from 'entities';
+import * as Entities from '@/entities';
+
+export type DatabaseModuleInterface = DataSource;
 
 export const dataSource = new DataSource({
   type: process.env.DB_TYPE,
@@ -12,12 +14,12 @@ export const dataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: [...Object.values(Entities)],
-  dropSchema: true,
-  synchronize: true,
+  // dropSchema: true,
+  // synchronize: true,
   ssl: true,
 });
 
-export default new AsyncContainerModule(async (bind) => {
+export default new ContainerModule(async () => {
   try {
     await dataSource.initialize();
     pino().info(`${process.env.DB_TYPE} DB CONNECTED`);
@@ -27,11 +29,4 @@ export default new AsyncContainerModule(async (bind) => {
 
     throw error;
   }
-
-  // USER
-  // const userRepository = dataSource.getRepository<Repositories.UserRepo>(Repositories.UserRepo);
-  // bind(Repositories.UserRepo).toConstantValue(userRepository);
-  // bind(Repositories.UserRepo).toConstantValue(userRepository);
-  // bind<Repositories.UserRepo>("userRepo").toConstantValue(repoFactory(myDS.manager));
-  // console.log(userRepository);
 });

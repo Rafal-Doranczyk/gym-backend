@@ -11,7 +11,7 @@ import {
 import { IsEmail, Length } from 'class-validator';
 import { constants, enums } from 'gym-shared';
 
-import * as E from 'entities';
+import * as E from '@/entities';
 
 @Entity()
 @Unique(['email'])

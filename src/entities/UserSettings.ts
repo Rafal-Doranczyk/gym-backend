@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { constants, enums } from 'gym-shared';
 
-import { UserEntity } from 'entities';
+import { UserEntity } from '@/entities';
 
 @Entity()
 export default class UserSettings {

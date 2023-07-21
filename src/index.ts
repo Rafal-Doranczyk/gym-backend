@@ -2,14 +2,13 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import { FastifyInstance } from 'fastify';
 
-import container, { ConfigSymbols, ConfigInterface } from './container';
+import container, { ConfigSymbols, ConfigModuleInterface } from './container';
 
 /**
  * Run the server!
  */
 async function start() {
-  const { host, port } = container.get<ConfigInterface>(ConfigSymbols.Config);
-
+  const { host, port } = container.get<ConfigModuleInterface>(ConfigSymbols.Config);
   const server = await container.getAsync<FastifyInstance>(ConfigSymbols.Server);
 
   try {
